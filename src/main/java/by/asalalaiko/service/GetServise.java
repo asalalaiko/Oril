@@ -1,12 +1,17 @@
 package by.asalalaiko.service;
 
 import by.asalalaiko.model.Pair;
+import by.asalalaiko.repo.PairRepository;
+import by.asalalaiko.service.impl.JPAPairService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,8 +20,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-@Service
+@Component
 public class GetServise {
+
+
     private static final Logger LOGGER = LoggerFactory.getLogger(GetServise.class);
 
 
@@ -35,13 +42,12 @@ public class GetServise {
         messageConverters.add(converter);
         restTemplate.setMessageConverters(messageConverters);
 
+        Pair pair = new Pair();
+        pair = restTemplate.getForObject("https://cex.io/api/last_price/{Curr1}/{Curr2}", Pair.class, Curr1, Curr2);
+        pair.setTimestamp(new Date());
+        LOGGER.info("rest OK : " + pair.toString());
 
-        Pair lp = restTemplate.getForObject("https://cex.io/api/last_price/{Curr1}/{Curr2}", Pair.class, Curr1, Curr2);
-        lp.setTimestamp(new Date());
-        LOGGER.info("rest OK : " + lp.toString());
-
-
-        }
+    }
 
 
 

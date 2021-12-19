@@ -2,15 +2,28 @@ package by.asalalaiko.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+
+
+import javax.persistence.*;
 import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
+@Table(name = "pair")
 public class Pair {
 
+    @Id
+    @Column(name = "id")
+    @SequenceGenerator(name = "clientsIdSeq", sequenceName = "clients_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clientsIdSeq")
     private Integer id;
+    @Column(name = "created")
     private Date timestamp;
+    @Column(name = "curr1")
     private String curr1;
+    @Column(name = "curr2")
     private String curr2;
+    @Column(name = "lprice")
     private String lprice;
 
     public Integer getId() {

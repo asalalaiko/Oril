@@ -1,14 +1,17 @@
 package by.asalalaiko.repo;
 
 import by.asalalaiko.model.Pair;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
 
-public interface PairRepository {
+import java.util.List;
 
-    Collection<Pair> getByCurr1(String Curr1);
+@Repository
+public interface PairRepository extends JpaRepository<Pair, Integer> {
 
-    Pair addPair(Pair pair);
+    List<Pair> getByCurr1(String Curr1);
+
 
 
 }
