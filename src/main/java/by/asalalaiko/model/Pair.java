@@ -13,9 +13,8 @@ import java.util.Date;
 public class Pair {
 
     @Id
-    @Column(name = "id")
-    @SequenceGenerator(name = "clientsIdSeq", sequenceName = "clients_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clientsIdSeq")
+    //@Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "created")
     private Date timestamp;
@@ -24,7 +23,7 @@ public class Pair {
     @Column(name = "curr2")
     private String curr2;
     @Column(name = "lprice")
-    private String lprice;
+    private Double lprice;
 
     public Integer getId() {
         return id;
@@ -58,11 +57,11 @@ public class Pair {
         this.curr2 = curr2;
     }
 
-    public String getLprice() {
+    public Double getLprice() {
         return lprice;
     }
 
-    public void setLprice(String lprice) {
+    public void setLprice(Double lprice) {
         this.lprice = lprice;
     }
 

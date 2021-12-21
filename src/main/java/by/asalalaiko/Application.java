@@ -1,33 +1,44 @@
 package by.asalalaiko;
 
-import by.asalalaiko.model.Pair;
-import by.asalalaiko.service.GetServise;
-import by.asalalaiko.service.PairService;
-import by.asalalaiko.service.impl.JPAPairService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Component;
 
-import java.io.IOException;
+import java.util.List;
 
+@SpringBootApplication
+public class Application  {
 
-public class Application extends IOException {
-
-    @Autowired
-    private JPAPairService pairService;
-
-      public static void main(String args[]) throws InterruptedException {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
 
 
-        while (true){
 
-            new GetServise().findPair("BTC","USD");
 
-            new GetServise().findPair("ETH","USD");
-            new GetServise().findPair("XRP","USD");
-            Thread.sleep(15000L);
-        }
-        
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+
     }
-}
+//        @Override
+//        public void run(String... args) throws Exception {
+////            try {
+////                Pair pair = new Pair();
+////                pair.setCurr1("qqq1");
+////                pair.setCurr2("qqq2");
+////                pair.setLprice("111");
+////                pairService.create(pair);
+////            } catch(Exception e){
+////                LOGGER.error("Not RUN", e);
+////            }
+//
+//        }
+
+
+
+
+    }
+
+
