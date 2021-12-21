@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -45,11 +48,11 @@ public class PairController {
     ///cryptocurrencies/minprice?name=[currency_name]
     @GetMapping(value = "/cryptocurrencies/minprice")
     public ResponseEntity<List<Pair>> minprice(@RequestParam(value = "name") String currencyname) {
-         List<Pair> pairs = pairService.findByCurr1(currencyname);
-        final Optional<Pair> pair = pairs.stream()
-                .min(Comparator.comparing(Pair::getLprice));
 
-        return pair != null &&  !pairs.isEmpty()
+
+        Pair pair = pairService.getByCurr1Min(currencyname);
+
+        return pair != null
                 ? new ResponseEntity(pair, HttpStatus.OK)
                 : new ResponseEntity(HttpStatus.NOT_FOUND);
     }
@@ -57,15 +60,28 @@ public class PairController {
     ///cryptocurrencies/maxprice?name=[currency_name]
     @GetMapping(value = "/cryptocurrencies/maxprice")
     public ResponseEntity<List<Pair>> maxprice(@RequestParam(value = "name") String currencyname) {
-        List<Pair> pairs = pairService.findByCurr1(currencyname);
-        final Optional<Pair> pair = pairs.stream()
-                .max(Comparator.comparing(Pair::getLprice));
 
-        return pair != null &&  !pairs.isEmpty()
+        Pair pair = pairService.getByCurr1Max(currencyname);
+
+        return pair != null
                 ? new ResponseEntity(pair, HttpStatus.OK)
                 : new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
+///cryptocurrencies/csv
+    @GetMapping(value = "/cryptocurrencies/csv")
+        public void fooAsCSV(HttpServletResponse response) {
+        response.setContentType("text/csv; charset=utf-8");
 
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=report_" + currentDateTime + ".csv";
+        response.setHeader(headerKey, headerValue);
+
+
+
+    }
 
 }

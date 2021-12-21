@@ -39,4 +39,14 @@ public class PairServiceImpl implements PairService{
     public List<Pair> findByCurr1(String curr1, Pageable pageable) {
         return pairRepository.getByCurr1(curr1, pageable);
     }
+
+    @Override
+    public Pair getByCurr1Min(String Curr1) {
+        return pairRepository.findFirstByCurr1OrderByLpriceAsc(Curr1);
+    }
+
+    @Override
+    public Pair getByCurr1Max(String Curr1) {
+        return pairRepository.findFirstByCurr1OrderByLpriceDesc(Curr1);
+    }
 }

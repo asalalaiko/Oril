@@ -17,4 +17,10 @@ public interface PairService  {
 
     List<Pair> findByCurr1(String curr1, Pageable pageable);
 
+    Pair getByCurr1Min(String Curr1);
+
+    Pair getByCurr1Max(String Curr1);
+
+
+
 }

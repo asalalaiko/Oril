@@ -14,4 +14,9 @@ public interface PairRepository extends JpaRepository<Pair, Integer>   {
 
     List<Pair> getByCurr1(String Curr1, Pageable pageable);
 
+    Pair findFirstByCurr1OrderByLpriceAsc(String Curr1);
+
+    Pair findFirstByCurr1OrderByLpriceDesc(String Curr1);
+
+
 }
