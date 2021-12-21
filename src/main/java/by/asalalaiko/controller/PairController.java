@@ -1,5 +1,6 @@
 package by.asalalaiko.controller;
 
+import by.asalalaiko.model.CryptocurrencyReport;
 import by.asalalaiko.model.Pair;
 import by.asalalaiko.service.PairService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,12 @@ import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -70,7 +75,7 @@ public class PairController {
 
 ///cryptocurrencies/csv
     @GetMapping(value = "/cryptocurrencies/csv")
-        public void fooAsCSV(HttpServletResponse response) {
+        public void fooAsCSV(HttpServletResponse response) throws IOException {
         response.setContentType("text/csv; charset=utf-8");
 
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
@@ -81,7 +86,23 @@ public class PairController {
         response.setHeader(headerKey, headerValue);
 
 
+        List<CryptocurrencyReport> cr = new ArrayList<CryptocurrencyReport>();
+        cr.add(new CryptocurrencyReport("BTC", pairService.getByCurr1Min("BTC").getLprice(), pairService.getByCurr1Max("BTC").getLprice()));
+        cr.add(new CryptocurrencyReport("ETH", pairService.getByCurr1Min("ETH").getLprice(), pairService.getByCurr1Max("ETH").getLprice()));
+        cr.add(new CryptocurrencyReport("XRP", pairService.getByCurr1Min("XRP").getLprice(), pairService.getByCurr1Max("XRP").getLprice()));
 
-    }
+        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+        String[] csvHeader = {"Cryptocurrency Name", "Min Price", "Max Price"};
+        String[] nameMapping = {"name", "minPrice", "maxPrice"};
+
+        csvWriter.writeHeader(csvHeader);
+
+        for (CryptocurrencyReport cryptocurrencyReport : cr) {
+            csvWriter.write(cryptocurrencyReport, nameMapping);
+        }
+
+        csvWriter.close();
+
+        }
 
 }
