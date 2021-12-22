@@ -1,6 +1,7 @@
 package by.asalalaiko.controller;
 
 import by.asalalaiko.model.CryptocurrencyReport;
+import by.asalalaiko.model.Curr1;
 import by.asalalaiko.model.Pair;
 import by.asalalaiko.service.PairService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,9 +88,9 @@ public class PairController {
 
 
         List<CryptocurrencyReport> cr = new ArrayList<CryptocurrencyReport>();
-        cr.add(new CryptocurrencyReport("BTC", pairService.getByCurr1Min("BTC").getLprice(), pairService.getByCurr1Max("BTC").getLprice()));
-        cr.add(new CryptocurrencyReport("ETH", pairService.getByCurr1Min("ETH").getLprice(), pairService.getByCurr1Max("ETH").getLprice()));
-        cr.add(new CryptocurrencyReport("XRP", pairService.getByCurr1Min("XRP").getLprice(), pairService.getByCurr1Max("XRP").getLprice()));
+        cr.add(new CryptocurrencyReport(Curr1.BTC.name(), pairService.getByCurr1Min(Curr1.BTC.name()).getLprice(), pairService.getByCurr1Max(Curr1.BTC.name()).getLprice()));
+        cr.add(new CryptocurrencyReport(Curr1.ETH.name(), pairService.getByCurr1Min(Curr1.ETH.name()).getLprice(), pairService.getByCurr1Max(Curr1.ETH.name()).getLprice()));
+        cr.add(new CryptocurrencyReport(Curr1.XRP.name(), pairService.getByCurr1Min(Curr1.XRP.name()).getLprice(), pairService.getByCurr1Max(Curr1.XRP.name()).getLprice()));
 
         ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
         String[] csvHeader = {"Cryptocurrency Name", "Min Price", "Max Price"};

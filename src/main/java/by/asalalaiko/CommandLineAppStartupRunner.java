@@ -1,5 +1,7 @@
 package by.asalalaiko;
 
+import by.asalalaiko.model.Curr1;
+import by.asalalaiko.model.Curr2;
 import by.asalalaiko.model.Pair;
 import by.asalalaiko.repository.PairRepository;
 import by.asalalaiko.service.PairService;
@@ -35,9 +37,9 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
       while (true) {
 
-          pairRepository.save(findPair("BTC","USD"));
-          pairRepository.save(findPair("ETH","USD"));
-          pairRepository.save(findPair("XRP","USD"));
+          pairRepository.save(findPair(Curr1.BTC.name(), Curr2.USD.name()));
+          pairRepository.save(findPair(Curr1.ETH.name(), Curr2.USD.name()));
+          pairRepository.save(findPair(Curr1.XRP.name(), Curr2.USD.name()));
 
           Thread.sleep(15000L);
 
