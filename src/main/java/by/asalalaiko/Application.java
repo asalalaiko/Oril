@@ -22,20 +22,6 @@ public class Application  {
         SpringApplication.run(Application.class, args);
 
     }
-//        @Override
-//        public void run(String... args) throws Exception {
-////            try {
-////                Pair pair = new Pair();
-////                pair.setCurr1("qqq1");
-////                pair.setCurr2("qqq2");
-////                pair.setLprice("111");
-////                pairService.create(pair);
-////            } catch(Exception e){
-////                LOGGER.error("Not RUN", e);
-////            }
-//
-//        }
-
 
 
 

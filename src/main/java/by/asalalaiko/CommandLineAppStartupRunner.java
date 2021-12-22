@@ -35,9 +35,9 @@ public class CommandLineAppStartupRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
       while (true) {
 
-//          pairRepository.save(findPair("BTC","USD"));
-//          pairRepository.save(findPair("ETH","USD"));
-//          pairRepository.save(findPair("XRP","USD"));
+          pairRepository.save(findPair("BTC","USD"));
+          pairRepository.save(findPair("ETH","USD"));
+          pairRepository.save(findPair("XRP","USD"));
 
           Thread.sleep(15000L);
 
